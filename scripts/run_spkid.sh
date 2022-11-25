@@ -18,9 +18,10 @@ set -o pipefail
 # - db_devel: directory of the speecon database used during development
 # - db_test:  directory of the database used in the final test
 lists=lists
-w=work
-name_exp=one
-db_devel=spk_8mu/speecon
+w=work #si hacemos lp -> work/lp, si hacemos mfcc ->work/mfcc, si hacemos gmm de lp-> work/gmm/lp
+#work/ficheros_temporales_y_de_resultado
+name_exp=one #cambiar nombre a los ficheros temp y de resultados
+db_devel=spk_8mu/speecon #
 db_test=spk_8mu/sr_test
 
 # Ficheros de resultados del reconocimiento y verificación
@@ -86,6 +87,11 @@ compute_lp() {
     done
 }
 
+compute_mfcc() {
+#Con el comando shift el $1 desaparece y los otros decrementan una unidad, entonces $* no incluye el primero pero si todos
+    echo caca
+}
+
 #  Set the name of the feature (not needed for feature extraction itself)
 if [[ ! -n "$FEAT" && $# > 0 && "$(type -t compute_$1)" = function ]]; then
     FEAT=$1
@@ -113,7 +119,7 @@ for cmd in $*; do
        for dir in $db_devel/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ----
-           EXEC="gmm_train -v 1 -T 0.001 -N 5 -m 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train"
+           EXEC="gmm_train -v 1 -T 0.001 -N 5 -m 2 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train"
            echo $EXEC && $EXEC || exit 1
            echo
        done
