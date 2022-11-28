@@ -87,9 +87,26 @@ compute_lp() {
     done
 }
 
+compute_lpcc() {
+#Con el comando shift el $1 desaparece y los otros decrementan una unidad, entonces $* no incluye el primero pero si todos
+    db=$1
+    shift
+    for filename in $(sort $*); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2lpcc 25 25 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
+}
+
 compute_mfcc() {
 #Con el comando shift el $1 desaparece y los otros decrementan una unidad, entonces $* no incluye el primero pero si todos
-    echo caca
+    db=$1
+    shift
+    for filename in $(sort $*); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2mfcc 12 20 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
 }
 
 #  Set the name of the feature (not needed for feature extraction itself)
