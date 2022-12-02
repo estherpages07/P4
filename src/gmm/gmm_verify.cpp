@@ -25,6 +25,7 @@ float verify(const GMM &gmm_candidate, const fmatrix &dat)
 {
 
 	//TODO: implement verification score based on gmm of the candidate
+	//////////////////////////////////////////////////
 	float score = 0.0F;
 
 	return score;
