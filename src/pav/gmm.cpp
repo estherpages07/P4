@@ -216,8 +216,12 @@ namespace upc
 			// increase more than inc_threshold.
 			new_prob=em_expectation(data,weights);
 			em_maximization(data,weights);
+			inc_prob=new_prob-old_prob;
+			old_prob=new_prob;
 			if (verbose & 01)
 				cout << "GMM nmix=" << nmix << "\tite=" << iteration << "\tlog(prob)=" << new_prob << "\tinc=" << inc_prob << endl;
+			if(inc_prob<inc_threshold)
+				break;
 		}
 		return 0;
 	}
