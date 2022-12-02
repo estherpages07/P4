@@ -142,10 +142,14 @@ for cmd in $*; do
            name=${dir/*\/}
            echo $name ----
 <<<<<<< HEAD
+<<<<<<< HEAD
            EXEC="gmm_train -v 1 -T 0.001 -N 5 -m 2 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train"
 =======
            EXEC="gmm_train -v 1 -T 0.001 -N 5 -m 5 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train"
 >>>>>>> 8ef0e1b2a5db3cd1dd0cf04263fce816e0fe9246
+=======
+           EXEC="gmm_train -v 1 -T 0.001 -N 10 -m 26 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train"
+>>>>>>> b4b65e585df3d822e283953e2ed49bc3be4d26f0
            echo $EXEC && $EXEC || exit 1
            echo
        done
@@ -171,7 +175,7 @@ for cmd in $*; do
        # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
        #
        # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-        EXEC="gmm_train -v 1 -T 0.001 -N 5 -m 5 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train"
+        EXEC="gmm_train -v 1 -T 0.001 -N 26 -m 10 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train"
         echo $EXEC && $EXEC || exit 1
      
 

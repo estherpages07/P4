@@ -112,12 +112,7 @@ namespace upc
 
 		for (n=0; n<data.nrow(); ++n) {
 			/// \TODO Compute the logprob of a single frame of the input data; you can use gmm_logprob() above.
-<<<<<<< HEAD
-			/////////////////////////////
-			
-=======
 			lprob+=gmm_logprob(data[n]);
->>>>>>> 8ef0e1b2a5db3cd1dd0cf04263fce816e0fe9246
 		}
 		return lprob/data.nrow();
 	}
@@ -219,17 +214,14 @@ namespace upc
 			//
 			// Update old_prob, new_prob and inc_prob in order to stop the loop if logprob does not
 			// increase more than inc_threshold.
-<<<<<<< HEAD
-
-			new_prob = em_expectation(data,weights);
-			em_maximization(data,weights);
-
-=======
 			new_prob=em_expectation(data,weights);
 			em_maximization(data,weights);
->>>>>>> 8ef0e1b2a5db3cd1dd0cf04263fce816e0fe9246
+			inc_prob=new_prob-old_prob;
+			old_prob=new_prob;
 			if (verbose & 01)
 				cout << "GMM nmix=" << nmix << "\tite=" << iteration << "\tlog(prob)=" << new_prob << "\tinc=" << inc_prob << endl;
+			if(inc_prob<inc_threshold)
+				break;
 		}
 		return 0;
 	}
