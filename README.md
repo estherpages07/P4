@@ -32,17 +32,26 @@ ejercicios indicados.
 - Analice el script `wav2lp.sh` y explique la misión de los distintos comandos involucrados en el *pipeline*
   principal (`sox`, `$X2X`, `$FRAME`, `$WINDOW` y `$LPC`). Explique el significado de cada una de las 
   opciones empleadas y de sus valores.
+  * SoX sirve para trabajar con archivos de audio. Permite reproducir, grabar, leer y escribir en archivos de audio con distintos formatos.
+  * $X2X permite la conversión entre distintos formatos de datos. Pasamos de un signed integer de 16 bits a short float y de float a ascii para guardar en un fichero la fmatrix.
+  * $FRAME extrae trama a trama toda la secuencia. Cogemos tramas de longitud 240 con periodo 80.
+  * $WINDOW enventana los datos. Los datos de entrada y salida tienen longitud 240.
+  * $LPC calcula los coeficientes LPC. El parámetro -l indica la longitud de la trama y el parámetro -m el orden del LPC.
 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 51 del script `wav2lp.sh`).
-
+  <img src="im1.png" width="640" align="center">
+    - fmatrix crea una matriz que incluye el número de filas y columnas. Las filas corresponden a las tramas de la señal y las columnas a los coeficientes de cada trama. El número de columnas se calcula como el número de coeficientes del orden del LPC +1. El número de filas se calcula convirtiendo la señal a ascii con $X2X, contando las filas con wc -l, e introduciendo una línea de manera repetida con un comando perl.
   * ¿Por qué es más conveniente el formato *fmatrix* que el SPTK?
+    - Porque vemos claramente las tramas en cada fila y los coeficientes de las señales en las columnas.
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales de predicción lineal
   (LPCC) en su fichero <code>scripts/wav2lpcc.sh</code>:
+  <img src="im2.png" width="640" align="center">
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales en escala Mel (MFCC) en su
   fichero <code>scripts/wav2mfcc.sh</code>:
+  <img src="im3.png" width="640" align="center">
 
 ### Extracción de características.
 
@@ -63,7 +72,7 @@ ejercicios indicados.
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
   
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
-
+  * 13
 ### Entrenamiento y visualización de los GMM.
 
 Complete el código necesario para entrenar modelos GMM.
