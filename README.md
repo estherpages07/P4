@@ -42,7 +42,7 @@ ejercicios indicados.
   salida de SPTK (líneas 45 a 51 del script `wav2lp.sh`).
   <img src="im1.png" width="640" align="center">
   
-fmatrix crea una matriz que incluye el número de filas y columnas. Las filas corresponden a las tramas de la señal y las columnas a los coeficientes de cada trama. El número de columnas se calcula como el número de coeficientes del orden del LPC +1. El número de filas se calcula convirtiendo la señal a ascii con $X2X, contando las filas con wc -l, e introduciendo una línea de manera repetida con un comando perl.
+  fmatrix crea una matriz que incluye el número de filas y columnas. Las filas corresponden a las tramas de la señal y las columnas a los coeficientes de cada trama. El número de columnas se calcula como el número de coeficientes del orden del LPC +1. El número de filas se calcula convirtiendo la señal a ascii con $X2X, contando las filas con wc -l, e introduciendo una línea de manera repetida con un comando perl.
   * ¿Por qué es más conveniente el formato *fmatrix* que el SPTK?
     - Porque vemos claramente las tramas en cada fila y los coeficientes de las señales en las columnas.
 
