@@ -61,19 +61,42 @@ ejercicios indicados.
   
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
+    * LP
+
+    plot_gmm_feat -x 2 -y 3 work/gmm/lp/SES168.gmm work/lp/BLOCK16/SES168/*
+    <img src="coef-gmm-lp-168.png" width="640" align="center">
+
+    * LPCC
+
+    plot_gmm_feat -x 2 -y 3 work/gmm/lpcc/SES168.gmm work/lpcc/BLOCK16/SES168/*
+    <img src="coef-gmm-lpcc-168.png" width="640" align="center">
+
+    * MFCC
+
+    plot_gmm_feat -x 2 -y 3 work/gmm/mfcc/SES168.gmm work/mfcc/BLOCK16/SES168/*
+    <img src="coef-gmm-mfcc-168.png" width="640" align="center">
+
   + ¿Cuál de ellas le parece que contiene más información?
+    * La gráfica de MFCC es la que parece que tiene los puntos más separados, por lo tanto, es la que parece que contiene más información.
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
   parámetros 2 y 3 para un locutor, y rellene la tabla siguiente con los valores obtenidos.
 
-  |                        | LP   | LPCC | MFCC |
-  |------------------------|:----:|:----:|:----:|
-  | &rho;<sub>x</sub>[2,3] |      |      |      |
+  |                        |     LP    |   LPCC  |    MFCC   |
+  |------------------------|:---------:|:-------:|:---------:|
+  | &rho;<sub>x</sub>[2,3] | -0.718955 | 0.03646 | 0.0419175 |
   
+  * LP: pearson work/lp/BLOCK16/SES168/*.lp
+  * LPCC: pearson work/lpcc/BLOCK16/SES168/*.lpcc
+  * MFCC: pearson work/mfcc/BLOCK16/SES168/*.mfcc
+
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
   
+  Vemos que LP es el que tiene mayor correlación, igual que en las gráficas. En este caso el más incorrelado es el LPCC, y no el MFCC como en las gráficas.
+
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
   * 13
+
 ### Entrenamiento y visualización de los GMM.
 
 Complete el código necesario para entrenar modelos GMM.
@@ -81,9 +104,15 @@ Complete el código necesario para entrenar modelos GMM.
 - Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
   para sus dos primeros coeficientes de MFCC.
 
+  <img src="gmm-168.png" width="640" align="center">
+
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
   del modelado GMM para diferenciar las señales de uno y otro.
+
+  <img src="gmm-168-comp-27.png" width="640" align="center">
+  <img src="gmm-27-comp-27.png" width="640" align="center">
+  <img src="gmm-168-comp-168.png" width="640" align="center">
 
 ### Reconocimiento del locutor.
 
@@ -91,6 +120,10 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 
 - Inserte una tabla con la tasa de error obtenida en el reconocimiento de los locutores de la base de datos
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
+
+  |               |   LP   |  LPCC  |  MFCC  |
+  |---------------|:------:|:------:|:------:|
+  | Tasa de error | 11.72% | 1.27%  | 2.55%  |
 
 ### Verificación del locutor.
 
@@ -100,6 +133,16 @@ Complete el código necesario para realizar verificación del locutor y optimice
   de verificación de SPEECON. La tabla debe incluir el umbral óptimo, el número de falsas alarmas y de
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
+
+  |                |         LP        |       LPCC      |        MFCC       |
+  |----------------|:-----------------:|:---------------:|:-----------------:|
+  |  Umbral óptimo | 0.564354927587993 | 0.2593305431556 | 0.504309935643293 |
+  |----------------|:-----------------:|:---------------:|:-----------------:|
+  | Falsas alarmas |   22/1000=0.0220  |  5/1000=0.0050  |  15/1000=0.0150   |
+  |----------------|:-----------------:|:---------------:|:-----------------:|
+  |     Pérdidas   |  106/250=0.4240   |  12/250=0.0480  |   42/250=0.1680   |
+  |----------------|:-----------------:|:---------------:|:-----------------:|
+  | Cost detection |        62.2       |        9.3      |       30.3        |
  
 ### Test final
 
